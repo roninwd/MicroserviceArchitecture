@@ -30,7 +30,7 @@ spec:
         app: homework
     spec:
       containers:
-        - image: samurenkoroma/homework:0.1
+        - image: samurenkoroma/homework:0.2
           name: homework
           ports:
             - containerPort: 8000
