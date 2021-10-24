@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: homework-service
+  namespace: samurenko
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8000
+  selector:
+    app: homework
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homework
+  namespace: samurenko
+  labels:
+    app: homework
+spec:
+  selector:
+    matchLabels:
+      app: homework
+  replicas: 3
+  template:
+    metadata:
+      namespace: samurenko
+      labels:
+        app: homework
+    spec:
+      containers:
+        - image: samurenkoroma/homework:0.1
+          name: homework
+          ports:
+            - containerPort: 8000
