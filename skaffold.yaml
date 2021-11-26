@@ -1,0 +1,15 @@
+apiVersion: skaffold/v2beta24
+kind: Config
+metadata:
+  name: microservicearchitecture
+build:
+  artifacts:
+  - image: samurenkoroma/homework
+    context: api
+    buildpacks:
+      builder: gcr.io/buildpacks/builder:v1
+deploy:
+  kubectl:
+    manifests:
+    - ingress.yaml
+    - service.yaml
