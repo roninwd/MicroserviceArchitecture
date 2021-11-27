@@ -1,0 +1,30 @@
+GET http://arch.homework/clients
+Content-Type: application/json
+
+###
+GET http://arch.homework/clients/1
+Content-Type: application/json
+
+
+###
+POST http://arch.homework/clients
+Content-Type: application/json
+
+{
+  "name": "roma",
+  "email": "roma@arch.homework",
+  "age": 35
+}
+
+###
+PATCH http://arch.homework/clients/2
+Content-Type: application/json
+
+{
+  "name": "roma2"
+}
+
+
+###
+DELETE http://arch.homework/clients/2
+Content-Type: application/json

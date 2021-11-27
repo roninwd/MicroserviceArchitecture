@@ -1,0 +1,101 @@
+openapi: 3.0.0
+info:
+  title: 'Samurenko API'
+  contact:
+    name: 'Samurenko API Team'
+  version: 0.0.1
+servers:
+  - url: 'http://arch.homework'
+    description: 'HTTP JSON API'
+paths:
+  /clients:
+    get:
+      responses:
+        '200':
+          description: 'Success response'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Client'
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientDTO'
+      responses:
+        '201':
+          description: 'Success create'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+  /clients/{id}:
+    get:
+      parameters:
+        - name: id
+          in: path
+          description: 'ID client'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Success response'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+    patch:
+      parameters:
+        - name: id
+          in: path
+          description: 'ID client'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientDTO'
+      responses:
+        '204':
+          description: 'Client was updated'
+    delete:
+      parameters:
+        - name: id
+          in: path
+          description: 'ID client'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: 'Client was deleted'
+components:
+  schemas:
+    Client:
+      type: object
+      properties:
+        id:
+          type: integer
+          default: 1
+        age:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+    ClientDTO:
+      type: object
+      required: [age, name, email]
+      properties:
+        age:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string

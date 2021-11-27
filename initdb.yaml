@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "myapp"
+  namespace: samurenko
+spec:
+  template:
+    metadata:
+      name: "myapp"
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: post-install-job
+          image: postgres:latest
+          env:
+            - name: POSTGRES_PASSWORD
+              value: "passwd"
+          command:
+            - sh
+            - "-c"
+            - |
+              psql postgres://myuser:passwd@postgres/myapp <<'EOF'
+                create table clients (id serial primary key, name varchar, email varchar, age int);
+                insert into clients (name, email, age) values ('Konstantin', 'test@arch.homework', 35);
+              EOF
+  backoffLimit: 0

@@ -3,6 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: postgres
+  namespace: samurenko
   labels:
     app: postgres
 spec:
@@ -17,6 +18,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: postgres-statefulset
+  namespace: samurenko
 spec:
   serviceName: "postgres"
   replicas: 1
@@ -49,8 +51,8 @@ spec:
     - metadata:
         name: postgredb
       spec:
-        accessModes: [ "ReadWriteOnce" ]
-        storageClassName: managed-standart-ssd-retain
+        accessModes: [ "ReadWriteMany" ]
+        storageClassName: standard
         resources:
           requests:
             storage: 4Gi

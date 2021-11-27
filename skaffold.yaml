@@ -4,12 +4,26 @@ metadata:
   name: microservicearchitecture
 build:
   artifacts:
-  - image: samurenkoroma/homework
-    context: api
-    buildpacks:
-      builder: gcr.io/buildpacks/builder:v1
+    - image: samurenkoroma/homework
+      context: api
+      buildpacks:
+        builder: gcr.io/buildpacks/builder:v1
+    - image: samurenkoroma/client
+      context: client
+      sync:
+        infer:
+          - '**/*.py'
+    - image: samurenkoroma/swagger
+      context: doc
+      sync:
+        infer:
+          - 'swagger.yaml'
 deploy:
   kubectl:
     manifests:
-    - ingress.yaml
-    - service.yaml
+      - app-config.yaml
+      - ingress.yaml
+      - service.yaml
+      - client.yaml
+      - initdb.yaml
+      - swagger.yaml
