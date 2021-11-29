@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-secret
+  namespace: {{.Values.namespace}}
+type: Opaque
+data:
+  DATABASE_URI: {{ printf "postgresql+psycopg2://%s:%s@%s:%s/%s"
+.Values.externalPostgresql.username
+.Values.externalPostgresql.password
+.Values.externalPostgresql.host
+.Values.externalPostgresql.port
+.Values.externalPostgresql.db | b64enc | quote }}

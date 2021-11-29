@@ -25,5 +25,4 @@ deploy:
       - ingress.yaml
       - service.yaml
       - client.yaml
-      - initdb.yaml
       - swagger.yaml
